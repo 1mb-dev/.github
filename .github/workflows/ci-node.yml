@@ -1,0 +1,89 @@
+name: Node CI
+
+on:
+  workflow_call:
+    inputs:
+      node-versions:
+        description: "JSON array of Node versions to test against"
+        type: string
+        default: '["20", "22"]'
+      lint-node-version:
+        description: "Node version for linting (should be latest LTS)"
+        type: string
+        default: "22"
+      run-audit:
+        description: "Run npm audit security check"
+        type: boolean
+        default: true
+      run-build:
+        description: "Run npm run build"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.lint-node-version }}
+          cache: "npm"
+
+      - run: npm ci
+      - run: npm run lint
+
+  test:
+    name: Test (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ${{ fromJSON(inputs.node-versions) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      - run: npm ci
+      - run: npm test
+
+      - name: Upload coverage
+        if: matrix.node-version == inputs.lint-node-version
+        uses: codecov/codecov-action@v4
+        continue-on-error: true
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    if: inputs.run-build
+    needs: [lint, test]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.lint-node-version }}
+          cache: "npm"
+
+      - run: npm ci
+      - run: npm run build
+
+  audit:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    if: inputs.run-audit
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.lint-node-version }}
+          cache: "npm"
+
+      - run: npm ci
+      - run: npm audit --audit-level=high
+        continue-on-error: true

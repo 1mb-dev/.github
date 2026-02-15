@@ -1,0 +1,123 @@
+name: Go CI
+
+on:
+  workflow_call:
+    inputs:
+      go-versions:
+        description: "JSON array of Go versions to test against"
+        type: string
+        default: '["1.24", "1.25"]'
+      lint-go-version:
+        description: "Go version for linting (should be latest)"
+        type: string
+        default: "1.25"
+      golangci-lint-version:
+        description: "golangci-lint version"
+        type: string
+        default: "v2.7.1"
+      coverage-threshold:
+        description: "Minimum coverage percentage (0 to skip)"
+        type: number
+        default: 0
+      run-security:
+        description: "Run govulncheck security scan"
+        type: boolean
+        default: true
+      build-binary:
+        description: "Build binary (set to main package path, empty to skip)"
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ inputs.lint-go-version }}
+
+      - name: Verify go.mod is tidy
+        run: |
+          go mod tidy -diff
+          go mod verify
+
+      - name: Check formatting
+        run: |
+          unformatted=$(gofmt -l .)
+          if [ -n "$unformatted" ]; then
+            echo "Unformatted files:"
+            echo "$unformatted"
+            exit 1
+          fi
+
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v7
+        with:
+          version: ${{ inputs.golangci-lint-version }}
+
+  test:
+    name: Test (Go ${{ matrix.go-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-version: ${{ fromJSON(inputs.go-versions) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Run tests
+        run: go test -race -coverprofile=coverage.out -covermode=atomic ./...
+
+      - name: Check coverage threshold
+        if: inputs.coverage-threshold > 0 && matrix.go-version == inputs.lint-go-version
+        run: |
+          total=$(go tool cover -func=coverage.out | grep total | awk '{print $3}' | sed 's/%//')
+          threshold=${{ inputs.coverage-threshold }}
+          echo "Coverage: ${total}% (threshold: ${threshold}%)"
+          if (( $(echo "$total < $threshold" | bc -l) )); then
+            echo "Coverage ${total}% is below threshold ${threshold}%"
+            exit 1
+          fi
+
+      - name: Upload coverage
+        if: matrix.go-version == inputs.lint-go-version
+        uses: codecov/codecov-action@v4
+        with:
+          files: coverage.out
+        continue-on-error: true
+
+  security:
+    name: Security
+    runs-on: ubuntu-latest
+    if: inputs.run-security
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ inputs.lint-go-version }}
+
+      - name: Run govulncheck
+        run: |
+          go install golang.org/x/vuln/cmd/govulncheck@latest
+          govulncheck ./...
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    if: inputs.build-binary != ''
+    needs: [lint, test]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ inputs.lint-go-version }}
+
+      - name: Build binary
+        run: go build -o /dev/null ${{ inputs.build-binary }}
