@@ -1,9 +1,17 @@
 ### 1mb-dev
 
-Open-source libraries and tools. All the hats. One head.
+Small libraries. Sharp tools. Built to ship, not to impress.
 
-**Go:** [goflow](https://github.com/1mb-dev/goflow) | [gopantic](https://github.com/1mb-dev/gopantic) | [lobster](https://github.com/1mb-dev/lobster) | [obcache-go](https://github.com/1mb-dev/obcache-go) | [autobreaker](https://github.com/1mb-dev/autobreaker) | [gowsay](https://github.com/1mb-dev/gowsay) | [ledgerq](https://github.com/1mb-dev/ledgerq)
+**Go**
+[goflow](https://github.com/1mb-dev/goflow) . [lobster](https://github.com/1mb-dev/lobster) . [markgo](https://github.com/1mb-dev/markgo) . [nivomoney](https://github.com/1mb-dev/nivomoney) . [ledgerq](https://github.com/1mb-dev/ledgerq) . [obcache-go](https://github.com/1mb-dev/obcache-go) . [autobreaker](https://github.com/1mb-dev/autobreaker) . [gopantic](https://github.com/1mb-dev/gopantic) . [gowsay](https://github.com/1mb-dev/gowsay)
 
-**TypeScript:** [murmur-hash](https://github.com/1mb-dev/murmur-hash) | [rollout-bucket](https://github.com/1mb-dev/rollout-bucket) | [bloom-sift](https://github.com/1mb-dev/bloom-sift) | [hash-orbit](https://github.com/1mb-dev/hash-orbit)
+**TypeScript**
+[murmur-hash](https://github.com/1mb-dev/murmur-hash) . [rollout-bucket](https://github.com/1mb-dev/rollout-bucket) . [bloom-sift](https://github.com/1mb-dev/bloom-sift) . [hash-orbit](https://github.com/1mb-dev/hash-orbit)
 
-**JavaScript:** [imguri](https://github.com/1mb-dev/imguri) | [obcachejs](https://github.com/1mb-dev/obcachejs)
+**JavaScript**
+[imguri](https://github.com/1mb-dev/imguri) . [obcachejs](https://github.com/1mb-dev/obcachejs) . [driftfm](https://github.com/1mb-dev/driftfm) . [magickwand](https://github.com/1mb-dev/magickwand)
+
+**Shell**
+[pi-gateway](https://github.com/1mb-dev/pi-gateway)
+
+All the hats. One head.
