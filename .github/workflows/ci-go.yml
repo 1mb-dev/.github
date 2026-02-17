@@ -36,7 +36,7 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-go@v5
         with:
           go-version: ${{ inputs.lint-go-version }}
@@ -67,7 +67,7 @@ jobs:
       matrix:
         go-version: ${{ fromJSON(inputs.go-versions) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.go-version }}
@@ -98,7 +98,7 @@ jobs:
     runs-on: ubuntu-latest
     if: inputs.run-security
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-go@v5
         with:
           go-version: ${{ inputs.lint-go-version }}
@@ -114,7 +114,7 @@ jobs:
     if: inputs.build-binary != ''
     needs: [lint, test]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-go@v5
         with:
           go-version: ${{ inputs.lint-go-version }}
