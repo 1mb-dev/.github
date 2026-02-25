@@ -73,6 +73,11 @@ jobs:
           go-version: ${{ matrix.go-version }}
 
       - name: Run tests
+        if: matrix.go-version != inputs.lint-go-version
+        run: go test -race ./...
+
+      - name: Run tests with coverage
+        if: matrix.go-version == inputs.lint-go-version
         run: go test -race -coverprofile=coverage.out -covermode=atomic ./...
 
       - name: Check coverage threshold
