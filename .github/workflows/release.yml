@@ -1,0 +1,62 @@
+name: Release
+
+on:
+  workflow_call:
+    inputs:
+      draft:
+        description: "Create as draft (true) or publish immediately (false)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Determine release title
+        id: title
+        env:
+          REF: ${{ github.ref_name }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Priority 1: annotated tag message subject (user-chosen name)
+          NAME=$(git for-each-ref --format='%(contents:subject)' "refs/tags/${REF}" | head -1)
+
+          # Priority 2: next unused name from .github/release-names.txt (per-repo theme)
+          if [ -z "$NAME" ] && [ -f .github/release-names.txt ]; then
+            USED=$(gh release list --limit 1000 --json name --jq '.[].name' 2>/dev/null || true)
+            while IFS= read -r candidate; do
+              [ -z "$candidate" ] && continue
+              if ! echo "$USED" | grep -qF "$candidate"; then
+                NAME="$candidate"
+                break
+              fi
+            done < .github/release-names.txt
+          fi
+
+          if [ -n "$NAME" ]; then
+            TITLE="${REF} - ${NAME}"
+          else
+            TITLE="$REF"
+          fi
+          echo "title=$TITLE" >> "$GITHUB_OUTPUT"
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REF: ${{ github.ref_name }}
+          TITLE: ${{ steps.title.outputs.title }}
+          DRAFT: ${{ inputs.draft }}
+        run: |
+          if [ "$DRAFT" = "true" ]; then
+            gh release create "$REF" --draft --generate-notes --title "$TITLE"
+          else
+            gh release create "$REF" --generate-notes --title "$TITLE"
+          fi
