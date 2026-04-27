@@ -15,6 +15,10 @@ on:
         description: "Run npm audit security check"
         type: boolean
         default: true
+      run-secret-scan:
+        description: "Run gitleaks secret scan"
+        type: boolean
+        default: true
       run-build:
         description: "Run npm run build"
         type: boolean
@@ -67,6 +71,11 @@ jobs:
 
       - run: npm ci
       - run: npm run build --if-present
+
+  secret-scan:
+    name: Secret Scan
+    if: inputs.run-secret-scan
+    uses: 1mb-dev/.github/.github/workflows/secret-scan.yml@main
 
   audit:
     name: Security Audit

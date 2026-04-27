@@ -23,6 +23,10 @@ on:
         description: "Run govulncheck security scan"
         type: boolean
         default: true
+      run-secret-scan:
+        description: "Run gitleaks secret scan"
+        type: boolean
+        default: true
       build-binary:
         description: "Build binary (set to main package path, empty to skip)"
         type: string
@@ -90,6 +94,11 @@ jobs:
             echo "Coverage ${total}% is below threshold ${threshold}%"
             exit 1
           fi
+
+  secret-scan:
+    name: Secret Scan
+    if: inputs.run-secret-scan
+    uses: 1mb-dev/.github/.github/workflows/secret-scan.yml@main
 
   security:
     name: Security
