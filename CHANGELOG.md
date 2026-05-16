@@ -4,8 +4,13 @@ Notable changes to shared workflows and org defaults.
 
 ## [Unreleased]
 
+## [shared-v1] - 2026-05-16
+
+First marked release of the shared workflows. Captures the stable state after the May 2026 hygiene cycle.
+
 ### Changed
 
+- Bump `dependabot/fetch-metadata` from `v2` to `v3` in `dependabot-auto-merge.yml` (Node 24 runtime).
 - Bump gitleaks default from `8.21.2` to `8.30.1` in `secret-scan.yml`.
 - README: correct stale Go and golangci defaults, document `secret-scan.yml` and `release.yml`, add `run-secret-scan` to Go and Node input tables, add Pinning Policy section.
 
