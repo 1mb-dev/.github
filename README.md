@@ -67,7 +67,7 @@ jobs:
 
 | Input | Default | Description |
 |-------|---------|-------------|
-| `gitleaks-version` | `8.21.2` | Gitleaks binary version |
+| `gitleaks-version` | `8.30.1` | Gitleaks binary version |
 
 The job fails on any detected secret (`--exit-code 1`). Findings are redacted in logs.
 
