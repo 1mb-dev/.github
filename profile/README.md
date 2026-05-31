@@ -3,7 +3,7 @@
 Small libraries. Sharp tools. Built to ship, not to impress.
 
 **Go**
-[goflow](https://github.com/1mb-dev/goflow) . [lobster](https://github.com/1mb-dev/lobster) . [markgo](https://github.com/1mb-dev/markgo) . [nivomoney](https://github.com/1mb-dev/nivomoney) . [ledgerq](https://github.com/1mb-dev/ledgerq) . [obcache-go](https://github.com/1mb-dev/obcache-go) . [autobreaker](https://github.com/1mb-dev/autobreaker) . [gopantic](https://github.com/1mb-dev/gopantic) . [gowsay](https://github.com/1mb-dev/gowsay)
+[shim](https://github.com/1mb-dev/shim) . [goflow](https://github.com/1mb-dev/goflow) . [lobster](https://github.com/1mb-dev/lobster) . [markgo](https://github.com/1mb-dev/markgo) . [nivomoney](https://github.com/1mb-dev/nivomoney) . [ledgerq](https://github.com/1mb-dev/ledgerq) . [obcache-go](https://github.com/1mb-dev/obcache-go) . [autobreaker](https://github.com/1mb-dev/autobreaker) . [gopantic](https://github.com/1mb-dev/gopantic) . [gowsay](https://github.com/1mb-dev/gowsay)
 
 **TypeScript**
 [cleartalk](https://github.com/1mb-dev/cleartalk) . [murmur-hash](https://github.com/1mb-dev/murmur-hash) . [rollout-bucket](https://github.com/1mb-dev/rollout-bucket) . [bloom-sift](https://github.com/1mb-dev/bloom-sift) . [hash-orbit](https://github.com/1mb-dev/hash-orbit)
