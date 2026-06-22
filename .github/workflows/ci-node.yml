@@ -32,7 +32,7 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ inputs.lint-node-version }}
@@ -48,7 +48,7 @@ jobs:
       matrix:
         node-version: ${{ fromJSON(inputs.node-versions) }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
@@ -63,7 +63,7 @@ jobs:
     if: inputs.run-build
     needs: [lint, test]
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ inputs.lint-node-version }}
@@ -82,7 +82,7 @@ jobs:
     runs-on: ubuntu-latest
     if: inputs.run-audit
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ inputs.lint-node-version }}
