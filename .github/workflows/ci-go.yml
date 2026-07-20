@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-go@v6
+      - uses: actions/setup-go@v7
         with:
           go-version: ${{ inputs.lint-go-version }}
 
@@ -72,7 +72,7 @@ jobs:
         go-version: ${{ fromJSON(inputs.go-versions) }}
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-go@v6
+      - uses: actions/setup-go@v7
         with:
           go-version: ${{ matrix.go-version }}
 
@@ -106,7 +106,7 @@ jobs:
     if: inputs.run-security
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-go@v6
+      - uses: actions/setup-go@v7
         with:
           go-version: ${{ inputs.lint-go-version }}
 
@@ -122,7 +122,7 @@ jobs:
     needs: [lint, test]
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-go@v6
+      - uses: actions/setup-go@v7
         with:
           go-version: ${{ inputs.lint-go-version }}
 
