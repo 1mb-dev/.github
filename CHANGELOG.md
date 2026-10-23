@@ -13,6 +13,7 @@ Notable changes to shared workflows and org defaults.
 - `ci-go.yml`: Go defaults `["1.26", "1.27"]`. Go 1.25 is EOL. Lint stays on Go 1.26 with golangci-lint `v2.9.0` until every consumer is clean under v2.13.2 (the first release with Go 1.27 support is v2.13.0); it must move before Go 1.28 drops 1.26 from the matrix.
 - `ci-node.yml`: Node defaults `["22", "24"]`, lint on `24`. Node 20 is EOL.
 - `check-latest: true` on every `setup-go` / `setup-node` step, so patches track the latest release instead of the runner cache. Majors still move only by a commit here.
+- `ci-node.yml`: Security Audit now fails on high/critical findings in production dependencies (`npm audit --omit=dev`). It had `continue-on-error: true`, so no Node vulnerability could ever turn CI red. The full-tree audit still runs and writes counts to the job summary, non-blocking.
 
 ### Security
 

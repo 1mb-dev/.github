@@ -47,7 +47,7 @@ jobs:
 |-------|---------|-------------|
 | `node-versions` | `["22", "24"]` | Node versions to test against |
 | `lint-node-version` | `"24"` | Node version for linting |
-| `run-audit` | `true` | Run npm audit |
+| `run-audit` | `true` | `npm audit --omit=dev --audit-level=high` blocks; the full-tree audit reports to the job summary without blocking |
 | `run-secret-scan` | `true` | Run gitleaks via `secret-scan.yml` |
 | `run-build` | `true` | Run npm run build |
 

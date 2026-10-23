@@ -111,5 +111,15 @@ jobs:
           cache: "npm"
 
       - run: npm ci
-      - run: npm audit --audit-level=high
+      # Blocking: what ships. --omit=dev is a scope boundary, not reachability -- an app whose
+      # bundler (vite, wrangler) is a devDependency can still emit vulnerable dev code into its
+      # artifact, which the full-tree step below reports. One retry so a registry 5xx is not a
+      # red with no vulnerability behind it.
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high || { sleep 10; npm audit --omit=dev --audit-level=high; }
+      - name: Audit full tree (report only)
         continue-on-error: true
+        run: |
+          npm audit --json > audit.json || true
+          jq -r '.metadata.vulnerabilities | "Full-tree audit: \(.critical) critical, \(.high) high, \(.moderate) moderate"' audit.json | tee -a "$GITHUB_STEP_SUMMARY"
+          npm audit --audit-level=high
