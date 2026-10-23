@@ -4,6 +4,10 @@ Notable changes to shared workflows and org defaults.
 
 ## [Unreleased]
 
+### Added
+
+- `ci-go.yml`, `ci-node.yml`: `CI Result` job needing every job, the check rulesets require. `Test Result` needed only `test`, so a PR red on Security still showed it green.
+
 ### Changed
 
 - `ci-go.yml`: Go defaults `["1.26", "1.27"]`. Go 1.25 is EOL. Lint stays on Go 1.26 with golangci-lint `v2.9.0` until every consumer is clean under v2.13.2 (the first release with Go 1.27 support is v2.13.0); it must move before Go 1.28 drops 1.26 from the matrix.
