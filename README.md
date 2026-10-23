@@ -68,6 +68,7 @@ jobs:
 | Input | Default | Description |
 |-------|---------|-------------|
 | `gitleaks-version` | `8.30.1` | Gitleaks binary version |
+| `gitleaks-sha256` | (pinned for the default) | sha256 of the linux_x64 tarball. Required when `gitleaks-version` is overridden; the job fails closed without it |
 
 The job fails on any detected secret (`--exit-code 1`). Findings are redacted in logs.
 

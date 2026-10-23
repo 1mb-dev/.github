@@ -14,6 +14,12 @@ Notable changes to shared workflows and org defaults.
 - `ci-node.yml`: Node defaults `["22", "24"]`, lint on `24`. Node 20 is EOL.
 - `check-latest: true` on every `setup-go` / `setup-node` step, so patches track the latest release instead of the runner cache. Majors still move only by a commit here.
 
+### Security
+
+- `secret-scan.yml`: verify the gitleaks tarball's sha256 before extracting (was `curl | tar`). New `gitleaks-sha256` input, required when the version is overridden.
+- `ci-go.yml`, `dependabot-auto-merge.yml`: pin `golangci/golangci-lint-action` (v9.3.0) and `dependabot/fetch-metadata` (v3.1.0) by commit SHA. The auto-merge job holds `contents: write`.
+- `dependabot-auto-merge.yml`: gate on the PR author (`github.event.pull_request.user.login`) instead of `github.actor`, which is whoever triggered the run.
+
 ## [shared-v1] - 2026-05-16
 
 First marked release of the shared workflows. Captures the stable state after the May 2026 hygiene cycle.
