@@ -21,7 +21,7 @@ jobs:
 
 | Input | Default | Description |
 |-------|---------|-------------|
-| `go-versions` | `["1.25", "1.26"]` | Go versions to test against |
+| `go-versions` | `["1.26", "1.27"]` | Go versions to test against |
 | `lint-go-version` | `"1.26"` | Go version for linting |
 | `golangci-lint-version` | `v2.9.0` | golangci-lint version |
 | `coverage-threshold` | `0` | Min coverage % (0 = skip) |
@@ -45,8 +45,8 @@ jobs:
 
 | Input | Default | Description |
 |-------|---------|-------------|
-| `node-versions` | `["20", "22"]` | Node versions to test against |
-| `lint-node-version` | `"22"` | Node version for linting |
+| `node-versions` | `["22", "24"]` | Node versions to test against |
+| `lint-node-version` | `"24"` | Node version for linting |
 | `run-audit` | `true` | Run npm audit |
 | `run-secret-scan` | `true` | Run gitleaks via `secret-scan.yml` |
 | `run-build` | `true` | Run npm run build |
