@@ -6,6 +6,7 @@ Notable changes to shared workflows and org defaults.
 
 ### Added
 
+- `ci-go.yml`: `coverage-packages` input, passed to `go test -coverpkg`. Empty (the default) leaves coverage as it was. Lets a repo gate on its library packages when untested example `main` packages would otherwise count as 0%.
 - `ci-go.yml`, `ci-node.yml`: `CI Result` job needing every job, the check rulesets require. `Test Result` needed only `test`, so a PR red on Security still showed it green.
 
 ### Changed

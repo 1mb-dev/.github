@@ -19,6 +19,10 @@ on:
         description: "Minimum coverage percentage (0 to skip)"
         type: number
         default: 0
+      coverage-packages:
+        description: "Packages counted for coverage, as -coverpkg patterns (comma-separated); empty counts each tested package itself"
+        type: string
+        default: ""
       run-security:
         description: "Run govulncheck security scan"
         type: boolean
@@ -84,7 +88,9 @@ jobs:
 
       - name: Run tests with coverage
         if: matrix.go-version == inputs.lint-go-version
-        run: go test -race -coverprofile=coverage.out -covermode=atomic ./...
+        env:
+          COVERPKG: ${{ inputs.coverage-packages }}
+        run: go test -race -coverprofile=coverage.out -covermode=atomic ${COVERPKG:+-coverpkg="$COVERPKG"} ./...
 
       - name: Check coverage threshold
         if: inputs.coverage-threshold > 0 && matrix.go-version == inputs.lint-go-version
