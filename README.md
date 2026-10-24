@@ -108,6 +108,10 @@ jobs:
 
 Adding a per-repo `.github/release-names.txt` (one name per line) enables themed release titles assigned in file order.
 
+## Required Check
+
+Rulesets on consumer repos require **`ci / CI Result`** (both `ci-go.yml` and `ci-node.yml` emit it). It needs every job, so a red Security or Lint blocks the merge; a job disabled by its input (`run-security: false`, empty `build-binary`) passes. Do not require `ci / Test Result`: it covers only the test matrix and is kept until existing branch protection moves off it.
+
 ## Pinning Policy
 
 All shared workflows are consumed via `@main`. This is intentional: a single maintainer plus a small consumer set means fix-once-apply-everywhere is the whole point. Every commit on `.github/main` propagates to all consumers on their next workflow run.

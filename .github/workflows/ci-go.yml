@@ -115,6 +115,24 @@ jobs:
           echo "Test matrix result: $result"
           [ "$result" = "success" ] || exit 1
 
+  # Required check for rulesets: every job, not only the test matrix. `Test Result` needs
+  # `test` alone, so a PR red on Security still showed it green (gowsay #15). A job its
+  # input disabled reports `skipped` and passes; a job skipped because a dependency failed
+  # is caught by that dependency. lint and test are never optional, so they must succeed.
+  ci-result:
+    name: CI Result
+    runs-on: ubuntu-latest
+    needs: [lint, test, secret-scan, security, build]
+    if: always()
+    steps:
+      - name: Verify every job succeeded or was disabled by input
+        env:
+          NEEDS: ${{ toJSON(needs) }}
+        run: |
+          echo "$NEEDS" | jq -r 'to_entries[] | "\(.key): \(.value.result)"'
+          echo "$NEEDS" | jq -e 'all(.[]; .result == "success" or .result == "skipped")
+            and .lint.result == "success" and .test.result == "success"' >/dev/null
+
   secret-scan:
     name: Secret Scan
     if: inputs.run-secret-scan
