@@ -6,11 +6,11 @@ on:
       node-versions:
         description: "JSON array of Node versions to test against"
         type: string
-        default: '["20", "22"]'
+        default: '["22", "24"]'
       lint-node-version:
         description: "Node version for linting (should be latest LTS)"
         type: string
-        default: "22"
+        default: "24"
       run-audit:
         description: "Run npm audit security check"
         type: boolean
@@ -36,6 +36,7 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ inputs.lint-node-version }}
+          check-latest: true
           cache: "npm"
 
       - run: npm ci
@@ -52,6 +53,7 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
+          check-latest: true
           cache: "npm"
 
       - run: npm ci
@@ -67,6 +69,7 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ inputs.lint-node-version }}
+          check-latest: true
           cache: "npm"
 
       - run: npm ci
@@ -86,6 +89,7 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ inputs.lint-node-version }}
+          check-latest: true
           cache: "npm"
 
       - run: npm ci
