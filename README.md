@@ -121,4 +121,4 @@ Trade-off: there is no version-pin shock absorber. Breaking changes hit all repo
 
 ## Org Profile
 
-`profile/README.md` is displayed on the [1mb-dev org page](https://github.com/1mb-dev).
+`profile/README.md` is displayed on the [1mb-dev org page](https://github.com/1mb-dev). It adapts the [1mb.dev](https://1mb.dev) cover and names no repos; the org's pins and repository list carry them.

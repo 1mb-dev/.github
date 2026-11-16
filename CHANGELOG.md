@@ -11,6 +11,7 @@ Notable changes to shared workflows and org defaults.
 
 ### Changed
 
+- `profile/README.md`: adapts the 1mb.dev cover and links it; the repo list is gone.
 - `ci-go.yml`: Go defaults `["1.26", "1.27"]`. Go 1.25 is EOL. Lint stays on Go 1.26 with golangci-lint `v2.9.0` until every consumer is clean under v2.13.2 (the first release with Go 1.27 support is v2.13.0); it must move before Go 1.28 drops 1.26 from the matrix.
 - `ci-node.yml`: Node defaults `["22", "24"]`, lint on `24`. Node 20 is EOL.
 - `check-latest: true` on every `setup-go` / `setup-node` step, so patches track the latest release instead of the runner cache. Majors still move only by a commit here.
