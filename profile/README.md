@@ -1,17 +1,3 @@
-### 1mb-dev
+Own it end to end. Ship without waiting.
 
-Small libraries. Sharp tools. Built to ship, not to impress.
-
-**Go**
-[shim](https://github.com/1mb-dev/shim) . [goflow](https://github.com/1mb-dev/goflow) . [lobster](https://github.com/1mb-dev/lobster) . [markgo](https://github.com/1mb-dev/markgo) . [nivomoney](https://github.com/1mb-dev/nivomoney) . [ledgerq](https://github.com/1mb-dev/ledgerq) . [obcache-go](https://github.com/1mb-dev/obcache-go) . [autobreaker](https://github.com/1mb-dev/autobreaker) . [gopantic](https://github.com/1mb-dev/gopantic) . [gowsay](https://github.com/1mb-dev/gowsay)
-
-**TypeScript**
-[cleartalk](https://github.com/1mb-dev/cleartalk) . [murmur-hash](https://github.com/1mb-dev/murmur-hash) . [rollout-bucket](https://github.com/1mb-dev/rollout-bucket) . [bloom-sift](https://github.com/1mb-dev/bloom-sift) . [hash-orbit](https://github.com/1mb-dev/hash-orbit)
-
-**JavaScript**
-[aipolicy](https://github.com/1mb-dev/aipolicy) . [gistapp](https://github.com/1mb-dev/gistapp) . [driftfm](https://github.com/1mb-dev/driftfm) . [imguri](https://github.com/1mb-dev/imguri) . [obcachejs](https://github.com/1mb-dev/obcachejs) . [magickwand](https://github.com/1mb-dev/magickwand)
-
-**Shell**
-[pi-gateway](https://github.com/1mb-dev/pi-gateway)
-
-All the hats. One head.
+Things to use, read and build with. The open source sits below. [1mb.dev](https://1mb.dev) is the record: each work with liner notes on why it was built and what building it taught.
